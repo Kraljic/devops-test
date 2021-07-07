@@ -24,7 +24,7 @@ pipeline {
                 junit 'target/surefire-reports/TEST-*.xml'
             }
             failure {
-                rocketSend channel: '#test-projekt', message: ':face_with_symbols_over_mouth: :face_with_symbols_over_mouth: :face_with_symbols_over_mouth: Build of test project was failed :: '
+                rocketSend channel: '#test-projekt', message:  '```Docker-Demo```' + ':face_with_symbols_over_mouth: :face_with_symbols_over_mouth: :face_with_symbols_over_mouth: Build of test project was failed :: \n'
             }
           }
         }
@@ -41,11 +41,8 @@ pipeline {
         }
     }
     post {
-        always {
-            rocketSend channel: '#test-projekt', message: '```$PROJECT_NAME - Build $BUILD_NUMBER - $BUILD_STATUS```' + '${SCRIPT, template="groovy-html.template"}'
-        }
         success {            
-            rocketSend channel: '#test-projekt', message: ':partying_face: :partying_face: :partying_face: Build of test project was success :: '
+            rocketSend channel: '#test-projekt', message:  '```Docker-Demo```' + ':partying_face: :partying_face: :partying_face: Build of test project was success :: \n'
         }
     }
 }
