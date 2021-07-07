@@ -12,7 +12,7 @@ pipeline {
         }
         stage('Test') {
           when {
-              not {
+              anyOf {
                 branch "master"
               }
           }
@@ -24,7 +24,7 @@ pipeline {
                 junit 'target/surefire-reports/TEST-*.xml'
             }
             failure {
-                rocketSend channel: '#test-projekt', message: ':face_with_symbols_over_mouth: Build of test project was failed :: '
+                rocketSend channel: '#test-projekt', message: ':face_with_symbols_over_mouth: :face_with_symbols_over_mouth: :face_with_symbols_over_mouth: Build of test project was failed :: '
             }
           }
         }
@@ -41,8 +41,8 @@ pipeline {
         }
     }
     post {
-        always {            
-            rocketSend channel: '#test-projekt', message: ':partying_face: Build of test project was success :: '
+        success {            
+            rocketSend channel: '#test-projekt', message: ':partying_face: :partying_face: :partying_face: Build of test project was success :: '
         }
     }
 }
