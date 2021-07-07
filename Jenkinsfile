@@ -24,7 +24,7 @@ pipeline {
                 junit 'target/surefire-reports/TEST-*.xml'
             }
             failure {
-                rocketSend channel: '#test-projekt', message:  '`DockerDemo` -  :leafy_green: `Failure`\n'
+                rocketSend channel: '#test-projekt', message:  '`DockerDemo` -  :stop_sign: `Failure`\n'
             }
           }
         }
