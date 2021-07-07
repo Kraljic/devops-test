@@ -42,7 +42,7 @@ pipeline {
     }
     post {
         success {
-            rocketSend channel: '#test-projekt', message:  env.BUILD_ID + ' ${currentBuild.projectName} #${env.BRANCH_NAME} -  :stop_sign: ${currentBuild.result}\n'
+            rocketSend channel: '#test-projekt', message:  '`' + currentBuild.projectName + '#' +env.BRANCH_NAME + '` -  :stop_sign: `'+currentBuild.result+'`\n'
         }
     }
 }
