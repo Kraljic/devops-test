@@ -39,7 +39,7 @@ pipeline {
 //                 sh 'mvn -T 1C -Pui package -DskipTests=true'
 //             }
 //         }
-//     }
+    }
     post {
         success {            
             rocketSend channel: '#test-projekt', message:  '${currentBuild.projectName}#${env.BRANCH_NAME} -  :stop_sign: ${currentBuild.result}\n'
