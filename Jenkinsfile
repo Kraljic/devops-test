@@ -42,7 +42,6 @@ pipeline {
     }
     post {
         success {
-            def currentBuild = getBuildCauses()
             rocketSend channel: '#test-projekt', message:  env.BUILD_ID + ' ${currentBuild.projectName} #${env.BRANCH_NAME} -  :stop_sign: ${currentBuild.result}\n'
         }
     }
