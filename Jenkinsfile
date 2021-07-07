@@ -24,7 +24,7 @@ pipeline {
                 junit 'target/surefire-reports/TEST-*.xml'
             }
             failure {
-                rocketSend channel: '#test-projekt', message:  '```Docker-Demo```' + ':face_with_symbols_over_mouth: :face_with_symbols_over_mouth: :face_with_symbols_over_mouth: Build of test project was failed :: \n'
+                rocketSend channel: '#test-projekt', message:  '`DockerDemo` -  :leafy_green: `Failure`\n'
             }
           }
         }
@@ -42,7 +42,7 @@ pipeline {
     }
     post {
         success {            
-            rocketSend channel: '#test-projekt', message:  '```Docker-Demo```' + ':partying_face: :partying_face: :partying_face: Build of test project was success :: \n'
+            rocketSend channel: '#test-projekt', message:  '`DockerDemo` -  :leafy_green: `Success` \n'
         }
     }
 }
