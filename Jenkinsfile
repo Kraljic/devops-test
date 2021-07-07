@@ -41,6 +41,9 @@ pipeline {
         }
     }
     post {
+        always {
+            rocketSend channel: '#test-projekt', message: $PROJECT_NAME - Build $BUILD_NUMBER - $BUILD_STATUS \n ${SCRIPT, template="groovy-html.template"}
+        }
         success {            
             rocketSend channel: '#test-projekt', message: ':partying_face: :partying_face: :partying_face: Build of test project was success :: '
         }
