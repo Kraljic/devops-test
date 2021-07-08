@@ -16,25 +16,24 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Test') {
-          when {
-              anyOf {
-                branch "master"
-              }
-          }
-          steps {
+//         stage('Test') {
+//           when {
+//               anyOf {
+//                 branch "master"
+//               }
+//           }
+//           steps {
 //             sh 'mvn test'
-            echo TODO
-          }
-          post {
-            always {
-                junit 'target/surefire-reports/TEST-*.xml'
-            }
-            failure {
-                rocketSend channel: '#test-projekt', message:  '${currentBuild.projectName}#${env.BRANCH_NAME}` -  :stop_sign: `${currentBuild.result}`\n'
-            }
-          }
-        }
+//           }
+//           post {
+//             always {
+//                 junit 'target/surefire-reports/TEST-*.xml'
+//             }
+//             failure {
+//                 rocketSend channel: '#test-projekt', message:  '${currentBuild.projectName}#${env.BRANCH_NAME}` -  :stop_sign: `${currentBuild.result}`\n'
+//             }
+//           }
+//         }
         stage('Build for deploy') {
             when {
                 anyOf {
