@@ -41,13 +41,13 @@ pipeline {
                     branch "master"
                 }
             }
+            docker.build(registry + ":$BUILD_NUMBER")
 //             steps {
 //                 sh 'mvn -T 1C -Pui package -DskipTests=true'
 //             }
             steps {
 //                 sh 'docker build -t docker-demo .'
 //                 dockerImage = docker.build registry + ":$BUILD_NUMBER"
-                docker.build(registry + ":$BUILD_NUMBER")
                 sh 'docker images'
             }
         }
