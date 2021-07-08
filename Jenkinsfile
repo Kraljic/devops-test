@@ -1,5 +1,5 @@
+def dockerImage
 
-def dockerImage = ''
 pipeline {
     agent any
     tools {
