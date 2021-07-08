@@ -7,7 +7,7 @@ RUN mvn -B -f ./pom.xml dependency:resolve
 RUN mvn dependency:go-offline
 
 COPY ./ ./
-RUN mvn package
+RUN mvn -T 1C -Pui package -DskipTests=true
 
 
 FROM java:8-jdk-alpine as app
