@@ -46,7 +46,8 @@ pipeline {
 //             }
             steps {
 //                 sh 'docker build -t docker-demo .'
-                dockerImage = docker.build registry + ":$BUILD_NUMBER"
+//                 dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                docker.build registry + ":$BUILD_NUMBER"
                 sh 'docker images'
             }
         }
