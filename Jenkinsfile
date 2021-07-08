@@ -39,17 +39,17 @@ pipeline {
 //                 sh 'mvn -T 1C -Pui package -DskipTests=true'
 //             }
             steps {
-                sh 'docker build -t DockerDemo .'
+                sh 'docker build -t docker-demo .'
                 sh 'docker images'
             }
         }
     }
     post {
         success {
-            rocketSend channel: '#Docker-Demo-Build', message:  '@all `' + env.$PROJECT_NAME + '#' +env.BRANCH_NAME + '` -  :leafy_green: `' + currentBuild.result + '`\n'
+            rocketSend channel: '#Docker-Demo-Build', message:  '@all `' + ${POM_VERSION} + env.PROJECT_NAME + '#' +env.BRANCH_NAME + '` -  :leafy_green: `' + currentBuild.result + '`\n'
         }
         failure {
-            rocketSend channel: '#Docker-Demo-Build', message:  '@all `' + env.$PROJECT_NAME + '#' +env.BRANCH_NAME + '` -  :stop_sign: `' + currentBuild.result + '`\n'
+            rocketSend channel: '#Docker-Demo-Build', message:  '@all `' + ${POM_VERSION} + env.PROJECT_NAME + '#' +env.BRANCH_NAME + '` -  :stop_sign: `' + currentBuild.result + '`\n'
         }
     }
 }
