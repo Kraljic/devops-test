@@ -7,7 +7,7 @@ pipeline {
         maven 'Maven DEFAULT'
     }
     environment {
-        registry = "onlytesting/DockerDemo"
+        registry = "onlytesting/docker-demo"
         registryCredential = 'DockerHub'
     }
     stages {
@@ -23,7 +23,7 @@ pipeline {
               }
           }
           steps {
-            sh 'mvn test'
+//             sh 'mvn test'
           }
           post {
             always {
