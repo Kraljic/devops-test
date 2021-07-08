@@ -24,6 +24,7 @@ pipeline {
           }
           steps {
 //             sh 'mvn test'
+            echo TODO
           }
           post {
             always {
