@@ -1,3 +1,5 @@
+
+def dockerImage = ''
 pipeline {
     agent any
     tools {
@@ -7,7 +9,6 @@ pipeline {
     environment {
         registry = "onlytesting/DockerDemo"
         registryCredential = 'DockerHub'
-        def dockerImage = ''
     }
     stages {
         stage('Checkout') {
