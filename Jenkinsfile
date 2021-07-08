@@ -4,6 +4,11 @@ pipeline {
         jdk 'System  JDK 8'
         maven 'Maven DEFAULT'
     }
+    environment {
+        registry = "onlytesting/DockerDemo"
+        registryCredential = 'DockerHub'
+        dockerImage = 'docker-demo'
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -39,8 +44,18 @@ pipeline {
 //                 sh 'mvn -T 1C -Pui package -DskipTests=true'
 //             }
             steps {
-                sh 'docker build -t docker-demo .'
+//                 sh 'docker build -t docker-demo .'
+                dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 sh 'docker images'
+            }
+        }
+        stage('Deploy our image') {
+            steps {
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push()
+                    }
+                }
             }
         }
     }
