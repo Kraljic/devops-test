@@ -7,7 +7,7 @@ pipeline {
     environment {
         registry = "onlytesting/DockerDemo"
         registryCredential = 'DockerHub'
-        dockerImage = 'docker-demo'
+        dockerImage = ''
     }
     stages {
         stage('Checkout') {
