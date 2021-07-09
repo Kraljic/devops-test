@@ -46,6 +46,7 @@ pipeline {
 //                 sh 'mvn -T 1C -Pui package -DskipTests=true'
                 script {
                     dockerImage = docker.build(registry + ":$BUILD_NUMBER")
+                    dockerImage.push("latest")
                 }
             }
         }
