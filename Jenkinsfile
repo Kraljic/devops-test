@@ -1,4 +1,5 @@
 def dockerImage
+def pomXml
 
 pipeline {
     agent any
@@ -34,8 +35,7 @@ pipeline {
         stage('Try Get Version') {
             steps {
                 script {
-                    pom = readMavenPom file: 'pom.xml'
-                    echo pom.version
+                    pomXml = readMavenPom file: 'pom.xml'
                 }
             }
         }
@@ -55,10 +55,16 @@ pipeline {
             }
         }
         stage('Deploy our image') {
+            when {
+                anyOf {
+                    branch "master"
+                }
+            }
             steps {
                 script {
                     docker.withRegistry( '', registryCredential ) {
                         dockerImage.push()
+                        dockerImage.push(pomXml.version)
                         dockerImage.push("latest")
                     }
                 }
@@ -67,10 +73,10 @@ pipeline {
     }
     post {
         success {
-            rocketSend channel: '#Docker-Demo-Build', message:  '@all `' + env.POM_VERSION + env.PROJECT_NAME + '#' +env.BRANCH_NAME + '` -  :leafy_green: `' + currentBuild.result + '`\n'
+            rocketSend channel: '#Docker-Demo-Build', message:  '@all `' + pomXml.name + '`::`' + pomXml.version + '`#`' +env.BRANCH_NAME + '` -  :leafy_green: `' + currentBuild.result + '`\n'
         }
         failure {
-            rocketSend channel: '#Docker-Demo-Build', message:  '@all `' + env.POM_VERSION + env.PROJECT_NAME + '#' +env.BRANCH_NAME + '` -  :stop_sign: `' + currentBuild.result + '`\n'
+            rocketSend channel: '#Docker-Demo-Build', message:  '@all `' + pomXml.name + '`::`' + pomXml.version + '`#`' +env.BRANCH_NAME + '` -  :stop_sign: `' + currentBuild.result + '`\n'
         }
     }
 }
