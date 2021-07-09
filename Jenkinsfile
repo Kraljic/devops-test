@@ -33,8 +33,10 @@ pipeline {
         }
         stage('Try Get Version') {
             steps {
-                pom = readMavenPom file: 'pom.xml'
-                echo pom.version
+                script {
+                    pom = readMavenPom file: 'pom.xml'
+                    echo pom.version
+                }
             }
         }
         stage('Build for deploy') {
