@@ -10,6 +10,7 @@ pipeline {
     environment {
         registry = "onlytesting/docker-demo"
         registryCredential = 'DockerHub'
+        RC_CHANNEL = '#Docker-Demo-Build'
     }
     stages {
         stage('Checkout') {
@@ -75,11 +76,8 @@ pipeline {
     }
     post {
         // Can be replaced with email notifications
-        success {
-            rocketSend channel: '#Docker-Demo-Build', message:  '@all `' + pomXml.name + ' :: ' + pomXml.version + ' # ' +env.BRANCH_NAME + '` -  :leafy_green: `' + currentBuild.result + '`\n'
-        }
-        failure {
-            rocketSend channel: '#Docker-Demo-Build', message:  '@all `' + pomXml.name + ' :: ' + pomXml.version + ' # ' +env.BRANCH_NAME + '` -  :stop_sign: `' + currentBuild.result + '`\n'
+        always {
+            rocketSend channel: '${RC_CHANNEL}', message:  '@all `' + pomXml.name + ' :: ' + pomXml.version + ' # ' +env.BRANCH_NAME + '` - `' + currentBuild.result + '`\n'
         }
     }
 }
