@@ -33,16 +33,7 @@ pipeline {
         }
         stage('Try Get Version') {
             steps {
-                script {
-                    String regex = '.*\\[INFO\\] Building .+ (.+)';
-                    def matcher = manager.getLogMatcher(regex);
-                    if (matcher == null) {
-                        version = null;
-                    } else {
-                        version =  matcher.group(1);
-                    }
-                    echo("TAG_SELECTOR="+version)
-                }
+                echo currentBuild.getParent().getModules().toArray()[0].getVersion()
             }
         }
         stage('Build for deploy') {
