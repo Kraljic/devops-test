@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Test') {
           when {
-              anyOf {
+              not {
                 branch "master"
               }
           }
@@ -55,7 +55,7 @@ pipeline {
                 }
             }
         }
-        stage('Deploy for test') {
+        stage('Push to DockerHub') {
             when {
                 anyOf {
                     branch "develop"
@@ -66,8 +66,8 @@ pipeline {
                 script {
                     docker.withRegistry( '', registryCredential ) {
                         dockerImage.push()
-                        dockerImage.push(pomXml.version)
                         dockerImage.push("latest")
+                        dockerImage.push(pomXml.version)
                     }
                 }
             }
