@@ -29,9 +29,6 @@ pipeline {
             always {
                 junit 'target/surefire-reports/TEST-*.xml'
             }
-            failure {
-                rocketSend channel: '#test-projekt', message:  '${currentBuild.projectName}#${env.BRANCH_NAME}` -  :stop_sign: `${currentBuild.result}`\n'
-            }
           }
         }
         stage('Build for deploy') {
@@ -53,8 +50,8 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry( '', registryCredential ) {
-                        dockerImage.tag("latest")
                         dockerImage.push()
+                        dockerImage.push("latest")
                     }
                 }
             }
