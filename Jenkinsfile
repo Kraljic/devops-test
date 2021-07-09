@@ -31,6 +31,15 @@ pipeline {
             }
           }
         }
+        stage('Try Get Version') {
+            steps {
+                sh "mvn --batch-mode -U deploy"
+                script {
+                    TAG_SELECTOR = readMavenPom().getVersion()
+                }
+                echo("TAG_SELECTOR=${TAG_SELECTOR}")
+            }
+        }
         stage('Build for deploy') {
             when {
                 anyOf {
