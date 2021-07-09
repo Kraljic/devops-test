@@ -33,7 +33,8 @@ pipeline {
         }
         stage('Try Get Version') {
             steps {
-                echo currentBuild.getParent().getModules().toArray()[0].getVersion()
+                pom = readMavenPom file: 'pom.xml'
+                echo pom.version
             }
         }
         stage('Build for deploy') {
