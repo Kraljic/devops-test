@@ -33,11 +33,16 @@ pipeline {
         }
         stage('Try Get Version') {
             steps {
-                sh "mvn --batch-mode -U deploy"
                 script {
-                    TAG_SELECTOR = readMavenPom().getVersion()
+                    String regex = '.*\\[INFO\\] Building .+ (.+)';
+                    def matcher = manager.getLogMatcher(regex);
+                    if (matcher == null) {
+                        version = null;
+                    } else {
+                        version =  matcher.group(1);
+                    }
+                    echo("TAG_SELECTOR="+version)
                 }
-                echo("TAG_SELECTOR=${TAG_SELECTOR}")
             }
         }
         stage('Build for deploy') {
